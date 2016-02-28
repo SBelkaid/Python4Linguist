@@ -25,11 +25,10 @@ These are python scripts, that read a KAF or NAF file and parses it. It basicall
 and extracts data using XPath. Make sure to place the folder containing theses in the same folder as the parser script. Example of usage:
 
 ```shell
-python
 
-python parser.py
+SomeonesComputer:python parser.py
 
-python v2_vis.py
+SomeonesComputer:python v2_vis.py
 ```
 
 Results
