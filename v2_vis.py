@@ -21,7 +21,7 @@ OUTPUT_FOLDER = 'kml_files/'
 def constructKML(urls, course_name):
 	doc = GX.kml()
 	for url in urls:
-		print url
+		# print url #see if it prints urls 
 		name = url.split('/')[-1]
 		point = points_dict.get(url)
 		if point:
@@ -37,22 +37,22 @@ def constructKML(urls, course_name):
 		f.write(xml)
 
 def retrieveUrls(prog, data_dict):
-	d = defaultdict(set)
-	d[prog]
+	urls = set()
 	languages = data_dict[prog].keys()
 	for l in languages:
 		for author in data_dict[prog][l]:
+			#could also be something else instead of only locations
 			all_places = data_dict[prog][l][author]['all_dbp_urls_all_places']
-			d[prog].update(all_places)
-	constructKML(d[prog], prog)
+			urls.update(all_places)
+	constructKML(urls, prog)
 
+if __name__=='__main__':
+	points_dict = json.load(open('lookUpDict.json', 'r'))
+	data = json.load(open('scripties.json'))
+	if not os.path.isdir(OUTPUT_FOLDER):
+		os.mkdir(OUTPUT_FOLDER)
 
-points_dict = json.load(open('lookUpDict.json', 'r'))
-data = json.load(open('scripties.json'))
-if not os.path.isdir(OUTPUT_FOLDER):
-	os.mkdir(OUTPUT_FOLDER)
+	# retrieveUrls('erf', data) #exute only one
 
-# retrieveUrls('erf', data)
-
-for prog in data.keys():
-	retrieveUrls(prog, data)
+	for prog in data.keys():
+		retrieveUrls(prog, data)
