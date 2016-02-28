@@ -22,13 +22,13 @@ Usage
 -----
 
 These are python scripts, that read a KAF or NAF file and parses it. It basically parses one KAF/NAF file
-and extracts data using XPath. Make sure to place the folder containing theses in the same folder as the parser script. Example of usage:
+and extracts data using XPath. Make sure to place the folder containing theses (defined in parser.py as: ``DIR_NAME = 'thesis_vu_2015'``) in the same folder as the parser script. Example of usage:
 
 ```shell
 
-SomeonesComputer:python parser.py
+NameOfComputer: python parser.py
 
-SomeonesComputer:python v2_vis.py
+NameOfComputer: python v2_vis.py
 ```
 
 Results
