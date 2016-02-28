@@ -1,3 +1,7 @@
+"""
+generates KML files for visualization. 
+"""
+
 import urllib
 from bs4 import BeautifulSoup
 import lxml.etree

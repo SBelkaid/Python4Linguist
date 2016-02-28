@@ -1,3 +1,7 @@
+"""
+Quick and dirty scraper. Not quick as in fast, but quickly written.
+"""
+
 import urllib
 from bs4 import BeautifulSoup
 import lxml.etree
@@ -32,13 +36,14 @@ def retrieveUrls(prog, data_dict):
 			all_places = data_dict[prog][l][author]['all_dbp_urls_all_places']
 			mother.extend(all_places)
 
-crawled_urls = set()
-mother = []
-key = {}
-data = json.load(open('scripties.json'))
-for prog in data.keys():
-	retrieveUrls(prog, data)
-for url in set(mother):
-	retrieveLongLat(url)
+if __name__=='__main__':
+	crawled_urls = set()
+	mother = []
+	key = {}
+	data = json.load(open('scripties.json'))
+	for prog in data.keys():
+		retrieveUrls(prog, data)
+	for url in set(mother):
+		retrieveLongLat(url)
 
-json.dump(key, open('lookUpDict.json', 'w+'))
+	json.dump(key, open('lookUpDict.json', 'w+'))
