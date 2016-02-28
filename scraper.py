@@ -26,7 +26,6 @@ def retrieveLongLat(url):
 		if el:
 			key[url] = el.get_text()
 
-
 def retrieveUrls(prog, data_dict):
 	d = {}
 	d[prog] = {}

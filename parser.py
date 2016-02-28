@@ -140,7 +140,6 @@ def extractor(f):
 	# 'all_non_people_dbp': list(non_people_dbpedia),
 	'all_entities': entities}
 
-
 	splitted, prog_lang, name = split_path(f)
 	trav(q, prog_lang, name, data)
 
@@ -153,7 +152,7 @@ if __name__ =='__main__':
 
 	for f in files:
 		extractor(f)
-		
+
 	#large dump may take a while
 	json.dump(q, open('scripties.json', 'w+'))
 	logging.info("Time it took to parse all files {}".format(datetime.now() - startTime))
