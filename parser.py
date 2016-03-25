@@ -19,7 +19,7 @@ DIR_NAME = 'thesis_vu_2015'
 PATTERN = '*.nohyphen'
 logging.basicConfig(filename='logger.log',level=logging.DEBUG)
 
-def split_path(e):
+def splitPath(e):
 	splitted = e.split('/')
 	prog_lang = splitted[1:-1]
 	name = splitted[-1]
@@ -77,7 +77,7 @@ def freq(element_list, descending=True):
 def lexDiv(amount_words):
 	return 1.0*len(set(amount_words))/len(amount_words)
 
-def anotherFreq(list_types, list_words):
+def returnFreqTypesWords(list_types, list_words):
 	"""
 	returns 10 most frequent types and 10 most frequent words
 	"""
@@ -120,7 +120,7 @@ def extractor(path_to_file):
 	top_people = freq([person_link.split('/')[-1] for person_link in people])[:10]
 	top_entities = freq([entity_link.split('/')[-1] for entity_link in entities])[:10]
 	top_places = freq([place_link.split('/')[-1] for place_link in places_dbpedia])[:10]
-	most_freq_types, most_freq_words = anotherFreq(types, words)
+	most_freq_types, most_freq_words = returnFreqTypesWords(types, words)
 
 	#stats from xml parse
 	data = {
@@ -146,7 +146,7 @@ def extractor(path_to_file):
 	# 'all_non_people_dbp': list(non_people_dbpedia),
 	'all_entities': entities}
 
-	splitted, prog_lang, name = split_path(path_to_file)
+	splitted, prog_lang, name = splitPath(path_to_file)
 	traverseRecursively(directory_tree, prog_lang, name, data)
 
 if __name__ =='__main__':
