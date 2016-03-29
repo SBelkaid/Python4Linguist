@@ -67,7 +67,7 @@ def reconstructFolderStruct(directories):
 
 def loadData(dir_name, pattern):
 	"""
-	finds files based on the defined extension (pattern param)
+	Finds files based on the defined extension (pattern param)
 	"""
 	nohyphen_files = []
 	dir_names = []

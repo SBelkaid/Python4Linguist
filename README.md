@@ -42,7 +42,27 @@ with the original folder structure of where the files where located and as menti
 
 scraper.py retrieves all dbpedia location urls from the scripties.json file and orders them on study program. Next it crawles the urls, parses the source and creates a dictionairy containing urls as keys and coordinates as values.
 
-v2_vis.py extract all locations from all theses from one master programme, gather all coordinates for these entities and visualize them using KML.
+showStats.py prints some stats per language in programme and programme alone. To view the stats individually for a thesis do the folowing:
+
+'''shell
+
+>>> import json
+>>> scripties = json.load(open('scripties.json', 'r'))
+>>> scripties['ges']['en'][u'Scriptie_Alders_trim.txt.naf.nohyphen']
+
+'''
+
+The above will show all the stats available for the author. 
+
+generateKML.py extracts all locations from all theses from one master programme, gather all coordinates for these entities and put them in KML.
+
+Testing
+-------------
+In some docstrings test have been made available. These can be run like so: 
+
+'''shell 
+python -m doctest parser.py -v
+'''
 
 Future Work
 ------

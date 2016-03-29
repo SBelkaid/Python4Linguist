@@ -11,6 +11,7 @@ def returnTotal(data):
 	looping throuh the scripties dictionairy and appending values. If values are lists
 	they are extended to return the total per language and programme.
 	"""
+
 	totals = {}
 	for programme in data.keys():
 		totals[programme] = {}
@@ -32,7 +33,7 @@ def returnTotal(data):
 	return totals
 
 def statsPerLanguageAndProgram(data, n=5):
-	'''
+	"""
 	This function calculates the following stats per language and programme:
 	average amount of sentences
 	average amount of tokens
@@ -41,7 +42,7 @@ def statsPerLanguageAndProgram(data, n=5):
 	most frequent people
 	most frequent locations
 	frequency of each entity
-	'''
+	"""
 
 	for programme in data.keys():
 		for language in data[programme]:
@@ -57,8 +58,9 @@ def statsPerLanguageAndProgram(data, n=5):
 
 
 def statsPerProgramme(programme_totals, n=5):
-	'''
-	This function calculates the following stats per programme:
+	"""
+	This function calculates the following stats per programme given the dictionairy
+	returned from returnTotal:
 	average amount of sentences
 	average amount of tokens
 	average amount of types
@@ -66,7 +68,8 @@ def statsPerProgramme(programme_totals, n=5):
 	most frequent people
 	most frequent locations
 	frequency of each entity
-	'''
+	"""
+
 	for programme in programme_totals:
 		all_sentences_course = []
 		all_tokens_course = []

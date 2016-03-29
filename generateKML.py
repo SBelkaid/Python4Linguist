@@ -17,6 +17,9 @@ from collections import defaultdict
 OUTPUT_FOLDER = 'kml_files/'
 
 def constructKML(urls, course_name):
+	"""
+	Create KML files given the urls and the course names. 
+	"""
 	doc = GX.kml()
 	for url in urls:
 		# print url #see if it prints urls 
@@ -35,12 +38,15 @@ def constructKML(urls, course_name):
 		f.write(xml)
 
 def retrieveUrls(prog, data_dict):
+	"""
+	extract urls from the data repository containing urls. 
+	"""
 	urls = set()
 	languages = data_dict[prog].keys()
-	for l in languages:
-		for author in data_dict[prog][l]:
+	for lang in languages:
+		for author in data_dict[prog][lang]:
 			#could also be something else instead of only locations
-			all_places = data_dict[prog][l][author]['all_dbp_urls_all_places']
+			all_places = data_dict[prog][lang][author]['all_dbp_urls_all_places']
 			urls.update(all_places)
 	constructKML(urls, prog)
 
@@ -51,6 +57,6 @@ if __name__=='__main__':
 		os.mkdir(OUTPUT_FOLDER)
 
 	# retrieveUrls('erf', data) #exute only one
-	
+
 	for prog in data.keys():
 		retrieveUrls(prog, data)
