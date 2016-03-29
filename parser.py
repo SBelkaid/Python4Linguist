@@ -19,8 +19,14 @@ DIR_NAME = 'thesis_vu_2015'
 PATTERN = '*.nohyphen'
 logging.basicConfig(filename='logger.log',level=logging.DEBUG)
 
-def splitPath(e):
-	splitted = e.split('/')
+def splitPath(path_to_file):
+	"""
+	>>> splitPath('thesis_vu_2015/tlw/nl/Scriptie_De_Graaf.txt.naf.nohyphen')
+	(['thesis_vu_2015', 'tlw', 'nl', 'Scriptie_De_Graaf.txt.naf.nohyphen'],\
+	['tlw', 'nl'], 'Scriptie_De_Graaf.txt.naf.nohyphen')
+
+	"""
+	splitted = path_to_file.split('/')
 	prog_lang = splitted[1:-1]
 	name = splitted[-1]
 	return splitted, prog_lang, name
@@ -46,13 +52,17 @@ def reconstructFolderStruct(directories):
 	 where theses are stored
 	:returns dictionairy with a reconstructed directory tree with programs as keys and values
 	subdivided in available languages. 
+
+	>>> l = [['arch'],['en']]
+	>>> reconstructFolderStruct(l)
+	{'arch': defaultdict(<type 'dict'>, {'en': defaultdict(<type 'dict'>, {})})}
 	"""
 	directories = [i for i in directories if i]
 	directory_tree = {}
-	for i, __ in enumerate(directories[0]):
-		directory_tree[directories[0][i]] = defaultdict(dict)
-		for lang in directories[i+1]:
-			directory_tree[directories[0][i]][lang] = defaultdict(dict)
+	for index, __ in enumerate(directories[0]):
+		directory_tree[directories[0][index]] = defaultdict(dict)
+		for lang in directories[index+1]:
+			directory_tree[directories[0][index]][lang] = defaultdict(dict)
 	return directory_tree
 
 def loadData(dir_name, pattern):
@@ -81,6 +91,11 @@ def freq(element_list, descending=True, amount=10):
 	return sorted(agglomerated.items(), key=operator.itemgetter(1), reverse=descending)[:amount]
 
 def lexDiv(amount_words):
+	"""
+	>>> 1.0*len(set(['a','b','c','c','d','a']))/len(['a','b','c','c','d','a'])
+	0.6666666666666666
+
+	"""
 	return 1.0*len(set(amount_words))/len(amount_words)
 
 def returnFreqTypesWords(list_types, list_words):
@@ -167,10 +182,10 @@ if __name__ =='__main__':
 	files, dirs, path = loadData(DIR_NAME, PATTERN)
 	directory_tree = reconstructFolderStruct(dirs)
 	
-	# extractor(files[0]) #Only one file, use for testing.
+	extractor(files[0]) #Only one file, use for testing.
 
-	for f in files:
-		extractor(f)
+	# for f in files:
+	# 	extractor(f)
 
 	#large dump may take a while
 	json.dump(directory_tree, open('scripties.json', 'w+'))
