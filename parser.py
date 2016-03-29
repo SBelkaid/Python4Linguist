@@ -141,7 +141,7 @@ def extractor(path_to_file):
 	'Amount_of_words': len(words),
 	'amount_unique_words': len(unique_words),
 	'lexical_diversity': lexDiv(words),
-	'type_token_ratio':len(types)/(len(word)+len(other_tokens)),
+	'type_token_ratio':1.0*len(types)/(len(words)+len(other_tokens)),
 	'amount_of_other_tokens': len(other_tokens),
 	'amount_of_sentences': amount_of_sentences,
 	'amount_of_non_people_dbpedia': len(non_people_dbpedia),
@@ -167,11 +167,11 @@ if __name__ =='__main__':
 	files, dirs, path = loadData(DIR_NAME, PATTERN)
 	directory_tree = reconstructFolderStruct(dirs)
 	
-	# extractor(files[0]) #Only one file, use for testing.
+	extractor(files[0]) #Only one file, use for testing.
 
-	for f in files:
-		extractor(f)
+	# for f in files:
+	# 	extractor(f)
 
 	#large dump may take a while
-	json.dump(directory_tree, open('scripties.json', 'w+'))
-	logging.info("Time it took to parse all files {}".format(datetime.now() - startTime))
+	# json.dump(directory_tree, open('scripties.json', 'w+'))
+	# logging.info("Time it took to parse all files {}".format(datetime.now() - startTime))
