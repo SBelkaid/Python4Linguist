@@ -18,7 +18,9 @@ You will need to have installed the BeautifulSoup library for python (http://www
 
 You will need to have installed the pykml library for python. Usually just by running`pip install --user pykml` should be enough for installing pykml.
 
-You will need to have installed the nltk library for python nltk.org. Best thing to do is install Anaconda https://www.continuum.io/downloads, contains more usefull stuff. 
+You will need to have installed the numpy library for python. Usually just by running`pip install --user numpy` should be enough for installing numpy.
+
+You will need to have installed the nltk library for python nltk.org. Best thing to do is install Anaconda https://www.continuum.io/downloads, contains more usefull modules, such as numpy and pandas. 
 
 Usage
 -----

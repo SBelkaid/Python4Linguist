@@ -1,5 +1,5 @@
 """
-Parser, extracts data from KAF NAF files.
+Parser, extracts data from KAF/NAF files.
 """
 import fnmatch
 import operator
@@ -33,8 +33,8 @@ def traverseRecursively(directory_tree, prog_language_list, author_name, data=No
 	"""
 	language_iterator = iter(prog_language_list)
 	content_program = directory_tree[language_iterator.next()]
-	print content_program
-	if isinstance(content_program,dict):
+	# print content_program
+	if isinstance(content_program, dict):
 		try:
 			traverseRecursively(content_program, [language_iterator.next()], author_name, data)
 		except StopIteration, e:
@@ -49,7 +49,7 @@ def reconstructFolderStruct(directories):
 	"""
 	directories = [i for i in directories if i]
 	directory_tree = {}
-	for i in range(len(directories[0])):
+	for i, __ in enumerate(directories[0]):
 		directory_tree[directories[0][i]] = defaultdict(dict)
 		for lang in directories[i+1]:
 			directory_tree[directories[0][i]][lang] = defaultdict(dict)
@@ -72,7 +72,7 @@ def loadData(dir_name, pattern):
 def freq(element_list, descending=True, amount=10):
 	"""
 	:param: list of elements
-	show most occuring element in element_list by performing a frequency count.
+	show most occuring element in element_list by performing a frequency count on the second element in the tuple.
 	Standard top 10 
 	"""
 	agglomerated = defaultdict(int)
@@ -120,35 +120,42 @@ def extractor(path_to_file):
 	 	namespaces={"re": "http://exslt.org/regular-expressions"})
 	amount_of_sentences = doc_evaluator('text/wf/@sent')[-1]
 	types = doc_evaluator('//term/@morphofeat')
-	longest_sentence = freq(doc.xpath('text/wf[re:match(text(), "[A-Za-z-]")]/@sent',\
-		namespaces={"re": "http://exslt.org/regular-expressions"}))[0]
+	longest_sentences = freq(doc.xpath('text/wf[re:match(text(), "[A-Za-z-]")]/@sent',\
+		namespaces={"re": "http://exslt.org/regular-expressions"}))
+	# print freq(doc.xpath('text/wf[re:match(text(), "[A-Za-z-]")]/@sent',\
+		# namespaces={"re": "http://exslt.org/regular-expressions"}))
 
 	top_people = freq([person_link.split('/')[-1] for person_link in people])
 	top_entities = freq([entity_link.split('/')[-1] for entity_link in entities])
 	top_places = freq([place_link.split('/')[-1] for place_link in places_dbpedia])
 	most_freq_types, most_freq_words = returnFreqTypesWords(types, words)
 
+
 	#stats from xml parse
 	data = {
-	'ten_most_frequent_people': top_people,
-	'ten_most_frequent_entities': top_entities,
-	'ten_most_frequent_places': top_places,
+	'n_most_frequent_people': top_people,
+	'n_most_frequent_entities': top_entities,
+	'n_most_frequent_places': top_places,
 	'ten_most_frequent_types': most_freq_types,
 	'most_freq_words': most_freq_words,
 	'Amount_of_words': len(words),
-	'amount_unique_words': len(other_tokens),
+	'amount_unique_words': len(unique_words),
 	'lexical_diversity': lexDiv(words),
-	'amount_of_other_tokens': len(unique_words),
+	'type_token_ratio':len(types)/(len(word)+len(other_tokens)),
+	'amount_of_other_tokens': len(other_tokens),
 	'amount_of_sentences': amount_of_sentences,
 	'amount_of_non_people_dbpedia': len(non_people_dbpedia),
 	'amount_of_people mentioned': len(set(people)),
 	'amount_of_locations': len(set(places_dbpedia)),
 	'amount_of_types': len(types),
-	'longest_sentence': longest_sentence[1],
-	'longest_sentence_number': longest_sentence[0],
+	'longest_sentence': longest_sentences[0][0],
+	'10_longest_sentences': longest_sentences,
+	# 'longest_sentence_number': longest_sentence[0][0],
 	'all_dbp_urls_all_places': places_dbpedia,
 	'all_words': list(words),
+	'all_other_tokens': other_tokens,
 	'all_people': people,
+	'all_types': types,
 	# 'all_non_people_dbp': list(non_people_dbpedia),
 	'all_entities': entities}
 
@@ -160,11 +167,11 @@ if __name__ =='__main__':
 	files, dirs, path = loadData(DIR_NAME, PATTERN)
 	directory_tree = reconstructFolderStruct(dirs)
 	
-	extractor(files[0]) #Only one file, use for testing.
+	# extractor(files[0]) #Only one file, use for testing.
 
-	# for f in files:
-	# 	extractor(f)
+	for f in files:
+		extractor(f)
 
 	#large dump may take a while
-	# json.dump(directory_tree, open('scripties.json', 'w+'))
-	# logging.info("Time it took to parse all files {}".format(datetime.now() - startTime))
+	json.dump(directory_tree, open('scripties.json', 'w+'))
+	logging.info("Time it took to parse all files {}".format(datetime.now() - startTime))
