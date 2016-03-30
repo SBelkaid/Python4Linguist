@@ -58,7 +58,7 @@ The above will show all the stats available for the given author.
 
 generateKML.py extracts all locations from all theses from one master programme, gather all coordinates for these entities and put them in KML.
 
-To show the stats on a more general level instead of an individual author, uncomment:
+To show the stats on a more general level instead of an individual author, uncomment the following lines in showStats.py:
 
 ```shell
 	# statsPerLanguageAndProgram(stats)
