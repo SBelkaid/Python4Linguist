@@ -64,8 +64,15 @@ In some docstrings test have been made available. These can be run like so:
 python -m doctest parser.py -v
 '''
 
+Visualistion
+-------------
+![alt tag](https://github.com/SBelkaid/Python4Linguist/blob/master/images/Screen%20Shot%202016-03-30%20at%206.39.11%20PM.png)
+
+
+
+
 Future Work
-------
+------------
 Add multithreading
 
 Contact
