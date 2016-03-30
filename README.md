@@ -68,7 +68,7 @@ Visualistion
 -------------
 This is the visualisation of the frequency of the types per language:
 
-![alt tag](https://github.com/SBelkaid/Python4Linguist/blob/master/images/Screen%20Shot%202016-03-30%20at%206.39.11%20PM.png)
+![alt tag](https://github.com/SBelkaid/Python4Linguist/blob/master/images/Screen%20Shot%202016-03-30%20at%206.46.55%20PM.png)
 
 
 Future Work

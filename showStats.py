@@ -107,17 +107,17 @@ def statsPerProgramme(programme_totals, n=5):
 		print 'Frequency each token', Counter(all_raw_tokens_course)
 		print '\n\n\n\n'
 
-def visualizeMultiple3D(stats, language='en', programs=['ges','arch','fil'], key='raw_all_types'):
+def visualizeMultiple3D(stats, language='en', programs=['ges','ciw','arch','fil'], key='raw_all_types'):
 	"""
 	Visualize the frequency of the types per programme given a language.
 	Change language to nl for Dutch. Change the programs list parameter to 
-	the programs you want to visualize. 
+	the programs you want to visualize.
 	"""
 	df = pd.DataFrame.from_dict(stats)
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
 	tags = ['NNP', 'NN', 'JJ', 'VBG','VBZ', 'NNP', 'DT']
-	xs = range(1, len(tags)+1)
+	xs = xrange(len(tags))
 	patches = []
 	for ix, programme in enumerate(programs):
 		lang_df = df.ix[language]
@@ -131,10 +131,11 @@ def visualizeMultiple3D(stats, language='en', programs=['ges','arch','fil'], key
 	ax.xaxis.set_major_locator(mpl.ticker.FixedLocator(xs))
 	ax.yaxis.set_major_locator(mpl.ticker.FixedLocator(ys))
 	ax.set_xticklabels(tags)
-	ax.set_yticklabels(zip(*programs)[0])
+	ax.set_yticklabels(programs)
 	ax.set_xlabel('POS tags')
 	ax.set_ylabel('Programs')
 	ax.set_zlabel('Frequency')
+	plt.title('Frequency of Types')
 	plt.legend(handles=patches)
 	plt.show()
 
