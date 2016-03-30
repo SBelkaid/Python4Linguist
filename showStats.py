@@ -1,10 +1,17 @@
 import json
-from collections import defaultdict
+import random
 import numpy as np
+import pandas as pd
+import matplotlib as mpl
+import matplotlib.patches as mpatches
+from collections import defaultdict
 from collections import Counter
 from datetime import datetime
 from parser import freq
+from matplotlib import pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
+plt.style.use('ggplot')
 
 def returnTotal(data):
 	"""
@@ -56,7 +63,6 @@ def statsPerLanguageAndProgram(data, n=5):
 			print '\tMost frequent people', Counter(data[programme][language]['all_people']).most_common(n)
 			print '\tFrequency entities', Counter(data[programme][language]['all_entities']).items()
 
-
 def statsPerProgramme(programme_totals, n=5):
 	"""
 	This function calculates the following stats per programme given the dictionairy
@@ -101,6 +107,37 @@ def statsPerProgramme(programme_totals, n=5):
 		print 'Frequency each token', Counter(all_raw_tokens_course)
 		print '\n\n\n\n'
 
+def visualizeMultiple3D(stats, language='en', programs=['ges','arch','fil'], key='raw_all_types'):
+	"""
+	Visualize the frequency of the types per programme given a language.
+	Change language to nl for Dutch. Change the programs list parameter to 
+	the programs you want to visualize. 
+	"""
+	df = pd.DataFrame.from_dict(stats)
+	fig = plt.figure()
+	ax = fig.add_subplot(111, projection='3d')
+	tags = ['NNP', 'NN', 'JJ', 'VBG','VBZ', 'NNP', 'DT']
+	xs = range(1, len(tags)+1)
+	patches = []
+	for ix, programme in enumerate(programs):
+		lang_df = df.ix[language]
+		types_df = pd.DataFrame(lang_df[programme][key], columns=[key])
+		color = plt.cm.Set2(random.choice(xrange(plt.cm.Set2.N)))
+		a_df = types_df.unstack().value_counts().ix[tags]
+		ys = a_df.values
+		ax.bar(xs, ys, zs=ix, zdir='y', color=color, alpha=0.8)
+		patches.append(mpatches.Patch(color=color, label=programme))
+
+	ax.xaxis.set_major_locator(mpl.ticker.FixedLocator(xs))
+	ax.yaxis.set_major_locator(mpl.ticker.FixedLocator(ys))
+	ax.set_xticklabels(tags)
+	ax.set_yticklabels(zip(*programs)[0])
+	ax.set_xlabel('POS tags')
+	ax.set_ylabel('Programs')
+	ax.set_zlabel('Frequency')
+	plt.legend(handles=patches)
+	plt.show()
+
 
 if __name__=='__main__':
 	print "Loading data"
@@ -109,9 +146,7 @@ if __name__=='__main__':
 	print "Loading took: {}".format(datetime.now() - startTime)
 	stats = returnTotal(scripties)
 	# statsPerLanguageAndProgram(stats)
-	statsPerProgramme(stats)
-
-
-
+	# statsPerProgramme(stats)
+	visualizeMultiple3D(stats)
 		
 

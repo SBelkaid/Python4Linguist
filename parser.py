@@ -182,10 +182,10 @@ if __name__ =='__main__':
 	files, dirs, path = loadData(DIR_NAME, PATTERN)
 	directory_tree = reconstructFolderStruct(dirs)
 	
-	extractor(files[0]) #Only one file, use for testing.
+	# extractor(files[0]) #Only one file, use for testing.
 
-	# for f in files:
-	# 	extractor(f)
+	for f in files:
+		extractor(f)
 
 	#large dump may take a while
 	json.dump(directory_tree, open('scripties.json', 'w+'))

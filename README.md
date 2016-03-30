@@ -3,7 +3,7 @@ Python4Linguist
 
 Description
 ----------
-This is a school project containing script that parses KAF / NAF files in python.
+This is a school project containing a script that parses KAF / NAF files in Python.
 
 Installation
 -----------
@@ -12,15 +12,15 @@ Clone the repository from github
 ````shell
 git clone git@github.com:SBelkaid/Python4Linguist.git
 ````
-You will need to have installed the lxml library for python (http://lxml.de/). Usually just by running`pip install --user lxml` should be enough for installing lxml.
+You will need to have installed the lxml library for Python (http://lxml.de/). Usually just by running`pip install --user lxml` should be enough for installing lxml.
 
 You will need to have installed the BeautifulSoup library for python (http://www.crummy.com/software/BeautifulSoup/). Usually just by running`pip install --user bs4` should be enough for installing bs4.
 
-You will need to have installed the pykml library for python. Usually just by running`pip install --user pykml` should be enough for installing pykml.
+You will need to have installed the pykml library for Python. Usually just by running`pip install --user pykml` should be enough for installing pykml.
 
-You will need to have installed the numpy library for python. Usually just by running`pip install --user numpy` should be enough for installing numpy.
+You will need to have installed the numpy library for Python. Usually just by running`pip install --user numpy` should be enough for installing numpy.
 
-You will need to have installed the nltk library for python nltk.org. Best thing to do is install Anaconda https://www.continuum.io/downloads, contains more usefull modules, such as numpy and pandas. 
+You will need to have installed the nltk library for Python nltk.org. Best thing to do is install Anaconda https://www.continuum.io/downloads, contains more usefull modules, such as numpy and pandas. 
 
 Usage
 -----
