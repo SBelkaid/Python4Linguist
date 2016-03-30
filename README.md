@@ -44,13 +44,13 @@ scraper.py retrieves all dbpedia location urls from the scripties.json file and 
 
 showStats.py prints some stats per language in programme and programme alone. To view the stats individually for a thesis do the folowing:
 
-'''shell
+```shell
 
 >>> import json
 >>> scripties = json.load(open('scripties.json', 'r'))
 >>> scripties['ges']['en'][u'Scriptie_Alders_trim.txt.naf.nohyphen']
 
-'''
+```
 
 The above will show all the stats available for the author. 
 
@@ -60,15 +60,15 @@ Testing
 -------------
 In some docstrings test have been made available. These can be run like so: 
 
-'''shell 
+```shell 
 python -m doctest parser.py -v
-'''
+```
 
 Visualistion
 -------------
+This is the visualisation of the frequency of the types per language:
+
 ![alt tag](https://github.com/SBelkaid/Python4Linguist/blob/master/images/Screen%20Shot%202016-03-30%20at%206.39.11%20PM.png)
-
-
 
 
 Future Work
