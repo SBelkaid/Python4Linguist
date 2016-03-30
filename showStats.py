@@ -1,3 +1,7 @@
+"""
+Printing stats and visualisation
+"""
+
 import json
 import random
 import numpy as np
@@ -10,6 +14,7 @@ from datetime import datetime
 from parser import freq
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+
 
 plt.style.use('ggplot')
 
