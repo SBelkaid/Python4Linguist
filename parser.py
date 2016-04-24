@@ -31,6 +31,7 @@ def split_path(path_to_file):
 	name = splitted[-1]
 	return splitted, prog_lang, name
 
+
 def traverse_recursively(directory_tree, prog_language_list, author_name, data=None):
 	"""
 	:param folder structure, program language (en, nl), author name,
@@ -45,6 +46,7 @@ def traverse_recursively(directory_tree, prog_language_list, author_name, data=N
 			traverse_recursively(content_program, [language_iterator.next()], author_name, data)
 		except StopIteration, e:
 			content_program[author_name] = data
+
 
 def reconstruct_folder_struct(directories):
 	"""
@@ -65,6 +67,7 @@ def reconstruct_folder_struct(directories):
 			directory_tree[directories[0][index]][lang] = defaultdict(dict)
 	return directory_tree
 
+
 def load_data(dir_name, pattern):
 	"""
 	Finds files based on the defined extension (pattern param)
@@ -79,6 +82,7 @@ def load_data(dir_name, pattern):
 			nohyphen_files.append(os.path.join(root, filename))
 	return nohyphen_files, dir_names, dir_paths
 
+
 def freq(element_list, descending=True, amount=10):
 	"""
 	:param: list of elements
@@ -90,6 +94,7 @@ def freq(element_list, descending=True, amount=10):
 		agglomerated[e] += 1
 	return sorted(agglomerated.items(), key=operator.itemgetter(1), reverse=descending)[:amount]
 
+
 def lex_div(amount_words):
 	"""
 	>>> 1.0*len(set(['a','b','c','c','d','a']))/len(['a','b','c','c','d','a'])
@@ -97,6 +102,7 @@ def lex_div(amount_words):
 
 	"""
 	return 1.0*len(set(amount_words))/len(amount_words)
+
 
 def return_freq_types(list_types, list_words):
 	"""
@@ -109,6 +115,7 @@ def return_freq_types(list_types, list_words):
 			agglomerated[w] += 1
 	sorted_dict = sorted(agglomerated.items(), key=operator.itemgetter(1), reverse=True)
 	return sorted_dict[:10], [t for t, freq in fd.items()[:10]]
+
 
 def extractor(path_to_file):
 	"""
@@ -176,6 +183,7 @@ def extractor(path_to_file):
 
 	splitted, prog_lang, author_name = split_path(path_to_file)
 	traverse_recursively(directory_tree, prog_lang, author_name, data)
+	
 
 if __name__ =='__main__':
 	startTime = datetime.now()
